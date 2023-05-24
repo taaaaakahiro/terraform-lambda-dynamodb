@@ -3,6 +3,7 @@
 ## golang
 
 ## terraform
+ - v1.4.6
 ```sh
 $ terraform -version ##バージョン確認
 ```
