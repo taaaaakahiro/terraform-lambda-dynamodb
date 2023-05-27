@@ -21,10 +21,10 @@ resource "aws_dynamodb_table" "this" {
     type = "N"
   }
 
-  ttl {
-    attribute_name = "TimeToExist"
-    enabled        = false
-  }
+  # ttl {
+  #   attribute_name = "TimeToExist"
+  #   enabled        = false
+  # }
 
   global_secondary_index {
     name               = "GameTitleIndex"

@@ -1,3 +1,3 @@
-output "lambda_dynamodb_table" {
-    value = module.dynamodb.lambda_dynamodb_table
+output "dynamodb_table" {
+    value = module.dynamodb.dynamodb_table
 }
