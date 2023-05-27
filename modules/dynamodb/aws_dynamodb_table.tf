@@ -1,5 +1,5 @@
 resource "aws_dynamodb_table" "this" {
-  name           = "lambda_dynamodb_table"
+  name           = "${var.prefix}_lambda_dynamodb_table"
   billing_mode   = "PROVISIONED"
   read_capacity  = 20
   write_capacity = 20
@@ -33,11 +33,11 @@ resource "aws_dynamodb_table" "this" {
     write_capacity     = 10
     read_capacity      = 10
     projection_type    = "INCLUDE"
-    non_key_attributes = ["UserId"]
+    non_key_attributes = ["id"]
   }
 
   tags = {
-    Name        = "dynamodb-table-1"
+    Name        = "${var.prefix}-dynamodb-table"
     Environment = "production"
   }
 }

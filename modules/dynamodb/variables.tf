@@ -3,3 +3,5 @@ variable item_count {
   default     = 100
   description = "dynamodb_item_counts"
 }
+
+variable prefix { type = string }
