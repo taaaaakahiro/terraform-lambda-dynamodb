@@ -4,5 +4,5 @@ module "s3" {
 
 module "dynamodb" {
     source = "../modules/dynamodb"
-    item_count = 50
+    item_count = local.item_count
 }
