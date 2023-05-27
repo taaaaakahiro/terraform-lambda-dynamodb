@@ -25,3 +25,8 @@ $ export AWS_SECRET_ACCESS_KEY=＜シークレットアクセスキー入力＞
 ```sh
 $ docker-compose config
 ```
+
+## modules
+- [x] S3
+- [x] IAM
+- [x] DynamoDB
