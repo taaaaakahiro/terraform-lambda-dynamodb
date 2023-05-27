@@ -1,4 +1,4 @@
 locals {
-  prefix = "example"
+  prefix     = "example"
   item_count = 50
 }
