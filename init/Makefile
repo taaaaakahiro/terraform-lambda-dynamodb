@@ -4,5 +4,7 @@ fmt:
 	terraform fmt
 plan: fmt
 	terraform plan
-apply:
+app: fmt
 	terraform apply -auto-approve
+des:
+	terraform destroy -auto-approve
