@@ -14,15 +14,16 @@ import (
 )
 
 type MyEvent struct {
-	Name string `json:"What is your name?"`
+	Key1 string `json:"key1"`
 }
 
 type MyResponse struct {
-	Message string `json:"Answer:"`
+	Message string `json:"answer"`
 }
 
 func hello(event MyEvent) (MyResponse, error) {
-	return MyResponse{Message: fmt.Sprintf("Hello %s!!", event.Name)}, nil
+
+	return MyResponse{Message: fmt.Sprintf("Hello %s!!", event.Key1)}, nil
 }
 
 func main() {
