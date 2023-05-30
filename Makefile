@@ -1,4 +1,4 @@
 run:
-	go run ./pkg/cmd/main.go
+	go run ./cmd/main.go
 
 .PHONY: build

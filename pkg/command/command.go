@@ -1,4 +1,4 @@
-package main
+package command
 
 import (
 	"context"
@@ -7,34 +7,26 @@ import (
 	"os"
 	"terraform-lambda-dynamodb/pkg/config"
 	"terraform-lambda-dynamodb/pkg/domain/entity"
+	"terraform-lambda-dynamodb/pkg/handler"
 	"terraform-lambda-dynamodb/pkg/io"
 
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/guregu/dynamo"
 )
 
-type MyEvent struct {
-	Key1 string `json:"key1"`
-}
-
-type MyResponse struct {
-	Message string `json:"answer"`
-}
-
-func hello(event MyEvent) (MyResponse, error) {
-
-	return MyResponse{Message: fmt.Sprintf("Hello %s!!", event.Key1)}, nil
-}
-
 const dynamoDbTableName = "example_lambda_dynamodb_table"
 
-func main() {
-	ctx := context.Background()
+func Run() {
+	run(context.Background())
+}
 
+func run(ctx context.Context) {
+	// prod
 	if os.Getenv("ENV") != "dev" {
-		lambda.Start(hello)
+		lambda.Start(handler.Handler)
 
 	} else {
+		// dev
 		cfg, err := config.LoadConfig(ctx)
 		if err != nil {
 			log.Fatal(err)
