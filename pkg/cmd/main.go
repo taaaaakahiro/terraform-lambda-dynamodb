@@ -26,6 +26,8 @@ func hello(event MyEvent) (MyResponse, error) {
 	return MyResponse{Message: fmt.Sprintf("Hello %s!!", event.Key1)}, nil
 }
 
+const dynamoDbTableName = "example_lambda_dynamodb_table"
+
 func main() {
 	ctx := context.Background()
 
@@ -43,24 +45,24 @@ func main() {
 		}
 
 		// テーブル作成をする為に、一度テーブルを削除します
-		db.Table("UserTable").DeleteTable().Run()
+		db.Table(dynamoDbTableName).DeleteTable().Run()
 
-		err = db.CreateTable("UserTable", entity.User{}).Run()
+		err = db.CreateTable(dynamoDbTableName, entity.User{}).Run()
 		if err != nil {
 			panic(err)
 		}
 		// テーブルの指定
-		table := db.Table("UserTable")
+		table := db.Table(dynamoDbTableName)
 
 		// User構造体をuser変数に定義
 		var user entity.User
 
 		// DBにPutします
-		err = table.Put(&entity.User{UserID: "1234", Name: "太郎", Age: 20, Text: "text1"}).Run()
+		err = table.Put(&entity.User{ID: "1234", Name: "太郎"}).Run()
 		if err != nil {
 			panic(err)
 		}
-		err = table.Get("UserID", "1234").Range("Name", dynamo.Equal, "太郎").One(&user)
+		err = table.Get("Id", "1234").Range("Name", dynamo.Equal, "太郎").One(&user)
 		if err != nil {
 			panic(err)
 		}
@@ -68,20 +70,20 @@ func main() {
 
 		// DBのデータをUpdateします
 		text := "新しいtextです"
-		err = table.Update("UserID", "1234").Range("Name", "太郎").Set("Text", text).Value(&user)
+		err = table.Update("Id", "1234").Range("Name", "太郎").Set("Text", text).Value(&user)
 		if err != nil {
 			panic(err)
 		}
 		fmt.Printf("UpdateDB%+v\n", user)
 
 		// DBのデータをDeleteします
-		err = table.Delete("UserID", "1").Range("Name", "Test1").Run()
+		err = table.Delete("Id", "1234").Range("Name", "Test1").Run()
 		if err != nil {
 			panic(err)
 		}
 
 		// Delete出来ているか確認
-		err = table.Get("UserID", "1").Range("Name", dynamo.Equal, "Test1").One(&user)
+		err = table.Get("Id", "1234").Range("Name", dynamo.Equal, "新しいtextです").One(&user)
 		if err != nil {
 			// Delete出来ていれば、dynamo: no item found のエラーとなる
 			fmt.Println("getError:", err)

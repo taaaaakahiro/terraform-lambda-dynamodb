@@ -1,8 +1,7 @@
 package entity
 
 type User struct {
-	UserID string `dynamo:"UserID,hash"`
+	ID string `dynamo:"Id,hash"`
 	Name   string `dynamo:"Name,range"`
-	Age    int    `dynamo:"Age"`
 	Text   string `dynamo:"Text"`
 }
