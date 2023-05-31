@@ -7,8 +7,9 @@ resource "aws_dynamodb_table_item" "this" {
 
   item = <<ITEM
 {
-  "id": {"S": "${format("%03d", count.index + 1)}"},
-  "name": {"S": "テストデータ${count.index + 1}"}
+  "UserId": {"S": "${format("%03d", count.index + 1)}"},
+  "Name": {"S": "テストデータ${count.index + 1}"},
+  "Text": {"S": "テキスト${count.index + 1}"}
 }
 ITEM
 }

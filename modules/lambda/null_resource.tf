@@ -8,7 +8,7 @@ resource "null_resource" "go_build" {
   }
 }
 
-data "archive_file" "go" {
+data "archive_file" "this" {
   depends_on  = [null_resource.go_build]
   type        = "zip"
   source_file = "../build/bin/main"

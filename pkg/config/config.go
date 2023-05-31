@@ -11,8 +11,9 @@ type Config struct {
 }
 
 type databaseConfig struct {
-	AwsRegion      string `env:"AWS_REGION"`
-	DynamoEndpoint string `env:"DYNAMO_ENDPOINT"`
+	AwsRegion       string `env:"AWS_REGION"`
+	DynamoEndpoint  string `env:"DYNAMO_ENDPOINT"`
+	DynamoTableName string `env:"TABLE_NAME"`
 }
 
 func LoadConfig(ctx context.Context) (*Config, error) {
