@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"strconv"
 	"terraform-lambda-dynamodb/pkg/config"
 	"terraform-lambda-dynamodb/pkg/domain/entity"
 	"terraform-lambda-dynamodb/pkg/domain/model"
@@ -27,7 +28,9 @@ func Handler(event model.MyEvent) (events.APIGatewayProxyResponse, error) {
 	log.Println("succes to select table")
 
 	var user entity.User
-	err = table.Get("UserId", "001").Range("Name", dynamo.Equal, "テストデータ1").One(&user)
+	intUserID, _ := strconv.Atoi(event.Key1)
+	id := fmt.Sprintf("%03d", intUserID)
+	err = table.Get("UserId", id).Range("Name", dynamo.Equal, "テストデータ"+event.Key1).One(&user)
 	if err != nil {
 		log.Println("failed to get config")
 		log.Fatal(err)
